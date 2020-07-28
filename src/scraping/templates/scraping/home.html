@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %} Home page {% endblock %}
+
+{% block content %}
+
+    <!-- Form for filter -->
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <form method="get" action="">
+                <div class="form-group">
+                    {{ form.as_p }}
+                </div>
+              <button type="submit" class="btn btn-primary">Запросить</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Django Code -->
+    {% for obj in object_list %}
+        <div class="card my-2">
+          <h5 class="card-header"><a href="{{ obj.url }}">{{ obj.title }}</a></h5>
+          <div class="card-body">
+              <h5 class="card-text my-3">{{ obj.company }}</h5>
+              <p class="card-text">{{ obj.description }}</p>
+              <p>{{ obj.city.name }} | {{ obj.language.name }} | <small>{{ obj.timestamp|date:"d-m-Y"}}</small></p>
+          </div>
+        </div>
+    {% empty %}
+        <div class="row my-3">
+            <div class="col-md-5 mx-auto">
+                <h5>К сожелению, по вашему запросу, ничего не найдено.</h5>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}
